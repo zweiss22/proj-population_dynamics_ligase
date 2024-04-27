@@ -40,7 +40,14 @@ for round_num in range(6,9):
     assigned_clusters = assigned_clusters.merge(count_df, on = 'Sequence')
     assigned_clusters = assigned_clusters.sort_values(by='Counts', ascending=False)
 
-    assigned_clusters['new_cluster'] = assigned_clusters.groupby('Cluster')['Counts'].rank(ascending=False, method='first').astype(int)
+    # Create a new column 'Ranked_Cluster'
+    ranked_cluster = {}
+    new_cluster_num = 1
+    for cluster in assigned_clusters['Cluster'].unique():
+        ranked_cluster[cluster] = new_cluster_num
+        new_cluster_num += 1
 
+    assigned_clusters['Ranked_Cluster'] = assigned_clusters['Cluster'].map(ranked_cluster)
 
     assigned_clusters.to_csv(clusters_path+'clusters_round'+str(round_num)+'.csv')
+    
