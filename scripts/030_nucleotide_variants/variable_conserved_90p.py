@@ -15,12 +15,12 @@ def calculate_similarity(seq1, seq2):
     identity = top_aln[2] / align_length
     return identity
 
-#base_path = '/Users/zoeweiss/Desktop/evolution_manuscript/results/010-slxn_qc/'
-#seqs = pd.read_csv(base_path+'filtered_round8.csv')
+base_path = '/Users/zoeweiss/Desktop/evolution_manuscript/results/010-slxn_qc/'
+seqs = pd.read_csv(base_path+'filtered_round8.csv')
 
 
-seqs = pd.read_csv('/Users/zoeweiss/Desktop/evolution_manuscript/proj-population_dynamics_ligase/data/clusters_round8.csv')
-seqs = list(seqs[seqs.Ranked_Cluster == 1].Sequence)
+#seqs = pd.read_csv('/Users/zoeweiss/Desktop/evolution_manuscript/proj-population_dynamics_ligase/data/clusters_round8.csv')
+#seqs = list(seqs[seqs.Ranked_Cluster == 1].Sequence)
 
 #counted_seqs = Counter(seqs)
 #top_seq = sorted(counted_seqs, key=counted_seqs.get, reverse=True)[0]
@@ -28,10 +28,10 @@ seqs = list(seqs[seqs.Ranked_Cluster == 1].Sequence)
 
 RS1 = 'GAATGCTGCCAACCGTGCGGGCTAATTGGCAGACTGAGCT'
 
-#seqs_g10 = list({key: value for key, value in counted_seqs.items() if value > 10}.keys())
+seqs_g10 = list({key: value for key, value in counted_seqs.items() if value > 10}.keys())
 # Calculate similarity and filter sequences
-threshold = 0
-similar_seqs = [seq for seq in seqs if calculate_similarity(Seq(seq), Seq(RS1)) > threshold]
+threshold = 0.9
+similar_seqs = [seq for seq in seqs_g10 if calculate_similarity(Seq(seq), Seq(RS1)) > threshold]
 
 
 # Initialize counts for each position and each nucleotide
@@ -79,5 +79,4 @@ for i in most_conserved_indices:
 print("\nTop 5 most variable spots:")
 for i in most_variable_indices:
     print("Position:", i+1, "Entropy:", entropy_values[i])
-
 
