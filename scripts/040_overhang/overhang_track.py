@@ -59,3 +59,5 @@ plt.ylabel('Fraction of reads', fontsize = 15)
 plt.legend(fontsize = 15)
 plt.grid(True)
 plt.show()
+
+pd.DataFrame(all_fractions).to_csv('/Users/zoeweiss/Desktop/evolution_manuscript/proj-population_dynamics_ligase/scripts/040_overhang/overhang_fractions.csv')
